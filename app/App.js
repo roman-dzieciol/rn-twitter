@@ -6,15 +6,16 @@ import {
 import HomeScreen from "./views/HomeScreen/HomeScreen.js";
 import AuthLoadingScreen from "./views/AuthLoadingScreen/AuthLoadingScreen.js";
 import SignInScreen from "./views/SignInScreen/SignInScreen.js";
+import { RootView } from "./components";
 
-const AppStack = createStackNavigator({ Home: HomeScreen });
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const AppStack = createStackNavigator({ Home: RootView(HomeScreen) });
+const AuthStack = createStackNavigator({ SignIn: RootView(SignInScreen) });
 
 const AppNavigator = createSwitchNavigator(
   {
-    AuthLoading: AuthLoadingScreen,
+    AuthLoading: RootView(AuthLoadingScreen),
     App: AppStack,
-    Auth: AuthStack
+    Auth: AuthStack,
   },
   {
     initialRouteName: "AuthLoading"
