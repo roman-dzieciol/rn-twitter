@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { resolve } from "uri-js";
-import commonStyles from '../../styles/common';
+import { commonStyles } from "../../styles/common";
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {

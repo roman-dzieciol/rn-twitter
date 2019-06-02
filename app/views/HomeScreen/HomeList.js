@@ -7,36 +7,29 @@ import {
   Button,
   ActivityIndicator
 } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
-import commonStyles from "../../styles/common";
+import { commonStyles } from "../../styles/common";
 import Config from "react-native-config";
+
 
 class HomeList extends React.Component {
   static navigationOptions = {
-    title: "Welcome"
+    title: "Home"
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home</Text>
         <FlatList
           data={this.props.data}
           renderItem={this._renderItem}
           keyExtractor={({ item }, index) => index.toString()}
         />
-        <Button title="Logout" onPress={this._signOutAsync} />
       </View>
     );
   }
 
   _renderItem = ({ item }) => {
     return <Text style={styles.item}>{item.text}</Text>;
-  };
-
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate("Auth");
   };
 }
 
@@ -46,9 +39,9 @@ const styles = StyleSheet.create({
     paddingTop: 22
   },
   item: {
-    padding: 10,
     fontSize: 18,
-    height: 44
+    height: 44,
+    padding: 10
   }
 });
 

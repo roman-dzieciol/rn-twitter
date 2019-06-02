@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Button } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-import commonStyles from '../../styles/common';
+import { commonStyles } from "../../styles/common";
 
 class SignInScreen extends React.Component {
   static navigationOptions = {

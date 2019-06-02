@@ -1,16 +1,23 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
+import hoistNonReactStatic from 'hoist-non-react-statics';
+import { COLOR_BACKGROUND_LIGHT } from '../styles/common'
 
 const RootView = WrappedComponent => {
-  return class RootView extends React.Component {
+  class RootView extends React.Component {
     render() {
       return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#ccc" }}>
+        <SafeAreaView style={styles.container}>
           <WrappedComponent {...this.props} />
         </SafeAreaView>
       );
     }
   };
+  hoistNonReactStatic(RootView, WrappedComponent)
+  return RootView
 };
+const styles = StyleSheet.create({
+  container: { backgroundColor: COLOR_BACKGROUND_LIGHT, flex: 1 }
+});
 
 export default RootView;

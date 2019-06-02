@@ -1,7 +1,7 @@
 import {
   createStackNavigator,
   createSwitchNavigator,
-  createAppContainer
+  createAppContainer,
 } from "react-navigation";
 import HomeScreen from "./views/HomeScreen/HomeScreen.js";
 import AuthLoadingScreen from "./views/AuthLoadingScreen/AuthLoadingScreen.js";
@@ -18,8 +18,8 @@ const AppNavigator = createSwitchNavigator(
     Auth: AuthStack,
   },
   {
-    initialRouteName: "AuthLoading"
-  }
+    initialRouteName: "AuthLoading",
+  },
 );
 
 export default createAppContainer(AppNavigator);

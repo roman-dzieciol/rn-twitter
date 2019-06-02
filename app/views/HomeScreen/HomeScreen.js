@@ -3,22 +3,21 @@ import {
   StyleSheet,
   FlatList,
   View,
-  Text,
+  Fragment,
   Button,
   ActivityIndicator
 } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
-import commonStyles from "../../styles/common";
 import Config from "react-native-config";
+import AsyncStorage from "@react-native-community/async-storage";
+import { commonStyles } from "../../styles/common";
 import { LoadingView } from '../../components'
 import HomeList from "./HomeList.js";
+import hoistNonReactStatic from 'hoist-non-react-statics';
+import * as Twitter from '../../api/Twitter';
 
 const HomeListWithLoading = LoadingView(HomeList);
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "Welcome"
-  };
 
   constructor(props) {
     super(props);
@@ -38,46 +37,22 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    this._fetchUserTimeline();
+    this._fetchUserTimeline()
   }
 
   _fetchUserTimeline = async () => {
-    try {
-      const userToken = await AsyncStorage.getItem("userToken");
-      const screenName = "twitterdev";
-      const maxTweets = 11;
-      const url = `${
-        Config.TWITTER_API_URL
-      }/statuses/user_timeline.json?screen_name=${screenName}&count=${maxTweets}`;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${userToken}`
-        }
-      });
-      if (response.ok) {
-        const responseJson = await response.json();
-        console.log(responseJson);
+    Twitter.fetchUserTimeline()
+      .then(data => this.setState({ data: data }))
+      .catch(error => console.error(error))
+    this.setState({ isLoading: false })
+  }
 
-        this.setState(
-          {
-            isLoading: false,
-            data: responseJson
-          },
-          function() {}
-        );
-      } else {
-        throw new Error(`HTTP status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
+  _logout = async () => {
+    await Twitter.logout()
     this.props.navigation.navigate("Auth");
   };
 }
+
+hoistNonReactStatic(HomeScreen, HomeListWithLoading)
 
 export default HomeScreen;

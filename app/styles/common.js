@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 
-export default StyleSheet.create({
+export const COLOR_BACKGROUND_LIGHT = '#ccc'
+
+export const commonStyles = StyleSheet.create({
   containerCenter: {
-    flex: 1,
     alignItems: "center",
+    flex: 1,
     justifyContent: "center"
   }
 });
