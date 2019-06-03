@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "postinstall": "node ./scripts/no_require_cycle.js"
+    "postinstall": "node ./scripts/no_require_cycle.js",
+    "test": "jest --verbose --coverage",
+    "test:update": "jest --verbose --coverage --updateSnapshot",
+    "test:watch": "jest --verbose --watch",
+    "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.4.2",
     "base-64": "^0.1.0",
-    "eslint": "^5.16.0",
     "hoist-non-react-statics": "^3.3.0",
+    "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.8",
     "react-native-config": "^0.11.7",
@@ -22,18 +24,30 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/runtime": "^7.4.5",
+    "@react-native-community/async-storage": "^1.4.2",
+    "@react-native-community/eslint-config": "^0.0.5",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-native": "^3.7.0",
+    "eslint-plugin-react-native-globals": "^0.1.2",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",
-    "react-test-renderer": "16.8.3"
+    "prettier": "^1.17.1",
+    "react-test-renderer": "16.8.3",
+    "typescript": "^3.5.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./.jest/async-storage.js"
+    ]
   }
 }

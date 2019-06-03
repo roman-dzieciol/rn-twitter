@@ -1,11 +1,12 @@
-import React from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import React from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
+import PropTypes from 'prop-types';
 
-function LoadingView(Component) {
-  function LoadingView({ isLoading, ...props }) {
+function withLoadingView(Component) {
+  const Inner = ({ isLoading, ...rest }) => {
     if (!isLoading) {
-      return <Component {...props} />;
+      return <Component {...rest} />;
     }
 
     return (
@@ -14,13 +15,27 @@ function LoadingView(Component) {
       </View>
     );
   };
-  hoistNonReactStatic(LoadingView, Component)
-  return LoadingView
+
+  Inner.defaultProps = {
+    isLoading: true,
+    rest: {}
+  };
+
+  Inner.propTypes = {
+    isLoading: PropTypes.bool,
+    rest: PropTypes.any
+  };
+
+  hoistNonReactStatic(Inner, Component);
+  return Inner;
 }
 
+withLoadingView.propTypes = {
+  Component: PropTypes.element
+};
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", flex: 1, justifyContent: "center" }
+  container: { alignItems: 'center', flex: 1, justifyContent: 'center' }
 });
 
-export default LoadingView;
+export default withLoadingView;

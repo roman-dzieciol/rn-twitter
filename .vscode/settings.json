@@ -1,4 +1,5 @@
 {
     "git.ignoreLimitWarning": true,
-    "eslint.packageManager": "yarn"
+    "eslint.packageManager": "yarn",
+    "editor.formatOnSave": true
 }

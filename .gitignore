@@ -56,3 +56,4 @@ buck-out/
 *.jsbundle
 asd
 .env
+coverage

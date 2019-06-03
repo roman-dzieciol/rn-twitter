@@ -1,19 +1,22 @@
-import React from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Text,
-  Button,
-  ActivityIndicator
-} from "react-native";
-import { commonStyles } from "../../styles/common";
-import Config from "react-native-config";
-
+import React from 'react';
+import { StyleSheet, FlatList, View, Text, Button, ActivityIndicator } from 'react-native';
+import { commonStyles } from '../../styles/common';
+import Config from 'react-native-config';
+import PropTypes from 'prop-types';
 
 class HomeList extends React.Component {
   static navigationOptions = {
-    title: "Home"
+    title: 'Home'
+  };
+
+  static defaultProps = {
+    data: []
+  };
+
+  static propTypes = {
+    data: PropTypes.arrayOf({
+      text: PropTypes.string
+    })
   };
 
   render() {
@@ -22,7 +25,7 @@ class HomeList extends React.Component {
         <FlatList
           data={this.props.data}
           renderItem={this._renderItem}
-          keyExtractor={({ item }, index) => index.toString()}
+          keyExtractor={this._keyExtractor}
         />
       </View>
     );
@@ -31,6 +34,8 @@ class HomeList extends React.Component {
   _renderItem = ({ item }) => {
     return <Text style={styles.item}>{item.text}</Text>;
   };
+
+  _keyExtractor = ({ item }, index) => index.toString();
 }
 
 const styles = StyleSheet.create({

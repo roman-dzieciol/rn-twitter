@@ -1,58 +1,47 @@
-import React from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Fragment,
-  Button,
-  ActivityIndicator
-} from "react-native";
-import Config from "react-native-config";
-import AsyncStorage from "@react-native-community/async-storage";
-import { commonStyles } from "../../styles/common";
-import { LoadingView } from '../../components'
-import HomeList from "./HomeList.js";
+import React from 'react';
+import { StyleSheet, FlatList, View, Fragment, Button, ActivityIndicator } from 'react-native';
+import Config from 'react-native-config';
+import AsyncStorage from '@react-native-community/async-storage';
+import { commonStyles } from '../../styles/common';
+import { withLoadingView } from '../../components';
+import HomeList from './HomeList.js';
 import hoistNonReactStatic from 'hoist-non-react-statics';
-import * as Twitter from '../../api/Twitter';
+import { Twitter } from '../../api/Twitter';
 
-const HomeListWithLoading = LoadingView(HomeList);
+const HomeListWithLoading = withLoadingView(HomeList);
 
 class HomeScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       data: null
     };
+    this.twitter = new Twitter();
   }
 
   render() {
-    return (
-      <HomeListWithLoading
-        isLoading={this.state.isLoading}
-        data={this.state.data}
-      />
-    );
+    return <HomeListWithLoading isLoading={this.state.isLoading} data={this.state.data} />;
   }
 
   componentDidMount() {
-    this._fetchUserTimeline()
+    this._fetchUserTimeline();
   }
 
-  _fetchUserTimeline = async () => {
-    Twitter.fetchUserTimeline()
-      .then(data => this.setState({ data: data }))
+  _fetchUserTimeline = () => {
+    return this.twitter
+      .fetchUserTimeline()
+      .then(data => this.setState({ data }))
       .catch(error => console.error(error))
-    this.setState({ isLoading: false })
-  }
+      .finally(() => this.setState({ isLoading: false }));
+  };
 
   _logout = async () => {
-    await Twitter.logout()
-    this.props.navigation.navigate("Auth");
+    await this.twitter.logout();
+    this.props.navigation.navigate('Auth');
   };
 }
 
-hoistNonReactStatic(HomeScreen, HomeListWithLoading)
+hoistNonReactStatic(HomeScreen, HomeListWithLoading);
 
 export default HomeScreen;

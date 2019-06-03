@@ -1,32 +1,31 @@
-import React from "react";
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  StatusBar
-} from "react-native";
+import React from 'react';
+import { Text, View, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { resolve } from "uri-js";
-import { commonStyles } from "../../styles/common";
+import { resolve } from 'uri-js';
+import { commonStyles } from '../../styles/common';
+import { Twitter } from '../../api/Twitter';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.twitter = new Twitter();
+  }
+
+  componentDidMount() {
     this._bootstrapAsync();
   }
 
-  _bootstrapAsync = async () => {
-    //await new Promise((resolve) => { setTimeout(resolve, 2000) })
-    const userToken = await AsyncStorage.getItem("userToken");
-    this.props.navigation.navigate(userToken ? "App" : "Auth");
+  _bootstrapAsync = () => {
+    this.twitter.needsLogin().then(needsLogin => {
+      this.props.navigation.navigate(needsLogin ? 'Auth' : 'App');
+    });
   };
 
   render() {
     return (
       <View style={commonStyles.containerCenter}>
-        <ActivityIndicator animating="true"/>
-        <StatusBar barStyle="default"/>
+        <ActivityIndicator animating="true" />
+        <StatusBar barStyle="default" />
         <Text>Auth Loading...</Text>
       </View>
     );
