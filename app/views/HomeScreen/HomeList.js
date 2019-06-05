@@ -14,9 +14,12 @@ class HomeList extends React.Component {
   };
 
   static propTypes = {
-    data: PropTypes.arrayOf({
-      text: PropTypes.string
-    })
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        text: PropTypes.string
+      })
+    )
   };
 
   render() {
@@ -35,7 +38,7 @@ class HomeList extends React.Component {
     return <Text style={styles.item}>{item.text}</Text>;
   };
 
-  _keyExtractor = ({ item }, index) => index.toString();
+  _keyExtractor = (item, index) => item.id;
 }
 
 const styles = StyleSheet.create({

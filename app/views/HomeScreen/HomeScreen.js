@@ -31,6 +31,7 @@ class HomeScreen extends React.Component {
   _fetchUserTimeline = () => {
     return this.twitter
       .fetchUserTimeline()
+      .then(data => data.map(item => ({ text: item.text, id: item.id_str })))
       .then(data => this.setState({ data }))
       .catch(error => console.error(error))
       .finally(() => this.setState({ isLoading: false }));
