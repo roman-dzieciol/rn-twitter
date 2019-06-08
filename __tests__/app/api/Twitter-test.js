@@ -1,26 +1,38 @@
+/* eslint-disable babel/camelcase */
 import 'react-native';
 import React from 'react';
 import { Twitter } from '../../../app/api/Twitter';
+import { fetchMock } from 'fetch-mock';
 
-test('logs out', async () => {
-  await Twitter.logout();
-});
+const getOAuth2TokenData = {
+  access_token: 'access-token',
+  token_type: 'bearer'
+};
+
+const getUserTimelineData = [
+  {
+    text: 't',
+    id: '1'
+  },
+  {
+    text: 't',
+    id: '2'
+  }
+];
 
 describe('ExampleComponent', () => {
   it('fetches data from server when server returns a successful response', async () => {
-    // 1
-    const mockSuccessResponse = {};
-    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
-    const mockFetchPromise = Promise.resolve({
-      // 3
-      json: () => mockJsonPromise
-    });
-    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    global.fetch = fetchMock.sandbox();
+
+    fetch.mock('https://t/oauth2/token', getOAuth2TokenData);
+
+    fetch.mock(
+      'https://t/1.1/statuses/user_timeline.json?screen_name=twitterdev&count=2',
+      getUserTimelineData
+    );
 
     const twitter = new Twitter();
-    await twitter.fetchUserTimeline();
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith('https://url-of-your-server.com/example/json');
-    global.fetch.mockClear();
+    const data = await twitter.fetchUserTimeline();
+    expect(data).toStrictEqual(getUserTimelineData);
   });
 });
