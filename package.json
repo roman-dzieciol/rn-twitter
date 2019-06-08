@@ -8,18 +8,22 @@
     "test": "jest --verbose --coverage",
     "test:update": "jest --verbose --coverage --updateSnapshot",
     "test:watch": "jest --verbose --watch",
-    "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html"
+    "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
+    "lint:css": "stylelint './app/**/*.js'"
   },
   "dependencies": {
     "base-64": "^0.1.0",
     "hoist-non-react-statics": "^3.3.0",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
+    "react-dom": "^16.8.6",
     "react-native": "0.59.9",
     "react-native-config": "^0.11.7",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-screens": "^1.0.0-alpha.22",
-    "react-navigation": "^3.11.0"
+    "react-navigation": "^3.11.0",
+    "styled-components": "^4.3.1",
+    "styled-theming": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -28,6 +32,7 @@
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.3.0",
@@ -39,9 +44,14 @@
     "eslint-plugin-react-native": "^3.7.0",
     "eslint-plugin-react-native-globals": "^0.1.2",
     "jest": "^24.8.0",
+    "jest-styled-components": "^6.3.1",
     "metro-react-native-babel-preset": "^0.54.1",
     "prettier": "^1.17.1",
     "react-test-renderer": "16.8.3",
+    "stylelint": "^10.1.0",
+    "stylelint-config-recommended": "^2.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.8.0",
     "typescript": "^3.5.1"
   },
   "jest": {
