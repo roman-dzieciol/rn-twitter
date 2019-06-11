@@ -1,4 +1,6 @@
 // __mocks__/react-native-config.js
-export default {
-  TWITTER_API_URL: 'https://t/'
-};
+
+const ConfigMock = jest.fn();
+//global.ConfigMock = ConfigMock;
+
+export default ConfigMock;

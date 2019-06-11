@@ -3,12 +3,12 @@ import { Text, View, ActivityIndicator, StyleSheet, StatusBar } from 'react-nati
 import AsyncStorage from '@react-native-community/async-storage';
 import { resolve } from 'uri-js';
 import { commonStyles } from '../../styles/common';
-import { Twitter } from '../../api/Twitter';
+import { TwitterAPI } from '../../api/Twitter';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.twitter = new Twitter();
+    this.twitter = new TwitterAPI();
   }
 
   componentDidMount() {
