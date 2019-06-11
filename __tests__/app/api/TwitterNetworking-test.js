@@ -3,39 +3,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { fetchMock } from 'fetch-mock';
 import 'react-native';
-
-import { HTTPResponseStatusError, UnexpectedResponseError } from '../../../app/api/TwitterErrors';
-import { TwitterStore } from '../../../app/api/TwitterStore';
-import { TwitterRequest } from '../../../app/api/TwitterRequest';
+import { HTTPResponseStatusError } from '../../../app/api/TwitterErrors';
 import { TwitterNetworking } from '../../../app/api/TwitterNetworking';
-import { TwitterAppAPI } from '../../../app/api/TwitterAppAPI';
-import { TwitterAPI } from '../../../app/api/Twitter';
-
-const getOAuth2TokenData = {
-  access_token: 'access-token',
-  token_type: 'bearer'
-};
-
-const getOAuth2TokenDataWithoutToken = {
-  access_token: undefined,
-  token_type: 'bearer'
-};
-
-const getOAuth2TokenDataWithInvalidType = {
-  access_token: 'token',
-  token_type: 'asd'
-};
-
-const getUserTimelineData = [
-  {
-    text: 't',
-    id: '1'
-  },
-  {
-    text: 't',
-    id: '2'
-  }
-];
+import { TwitterRequest } from '../../../app/api/TwitterRequest';
+import { TwitterStore } from '../../../app/api/TwitterStore';
 
 describe('TwitterNetworking', () => {
   let net = null;

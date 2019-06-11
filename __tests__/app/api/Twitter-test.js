@@ -1,30 +1,13 @@
 /* eslint-disable babel/camelcase */
-import 'react-native';
-import React from 'react';
-import { fetchMock } from 'fetch-mock';
-
 import AsyncStorage from '@react-native-community/async-storage';
-import Config from 'react-native-config';
-import { HTTPResponseStatusError, UnexpectedResponseError } from '../../../app/api/TwitterErrors';
-import { TwitterStore } from '../../../app/api/TwitterStore';
-import { TwitterRequest } from '../../../app/api/TwitterRequest';
-import { TwitterNetworking } from '../../../app/api/TwitterNetworking';
-import { TwitterAppAPI } from '../../../app/api/TwitterAppAPI';
+import { fetchMock } from 'fetch-mock';
+import 'react-native';
 import { TwitterAPI } from '../../../app/api/Twitter';
+import { TwitterStore } from '../../../app/api/TwitterStore';
 
 const getOAuth2TokenData = {
   access_token: 'access-token',
   token_type: 'bearer'
-};
-
-const getOAuth2TokenDataWithoutToken = {
-  access_token: undefined,
-  token_type: 'bearer'
-};
-
-const getOAuth2TokenDataWithInvalidType = {
-  access_token: 'token',
-  token_type: 'asd'
 };
 
 const getUserTimelineData = [
